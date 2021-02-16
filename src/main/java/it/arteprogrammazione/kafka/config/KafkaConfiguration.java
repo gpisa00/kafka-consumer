@@ -22,11 +22,14 @@ public class KafkaConfiguration {
     @Value("${bootstrap.servers}")
     private String bootstrapServers;
 
+    @Value("${groupId}")
+    private String groupId;
+
     @Bean
     public ConsumerFactory<String, Person> personConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, Constants.JSON_GROUP_ID);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
